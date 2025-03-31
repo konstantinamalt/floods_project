@@ -53,14 +53,6 @@ The project was a collaboration of 6 EDJNet members: [MIIR]([https://miir.gr/) (
 
 👉 See **From Space to Spreadsheet: The Troubled Waters Methodology** [here](https://konstantinamalt.github.io/floods/)
 
-## Collection and Analysis
-#### Libraries Used
-This analysis was conducted using the following Python libraries:
-- **pandas** – for data cleaning, analysis, and merging across multiple datasets.
-- **requests** – to retrieve data from the Copernicus API (in JSON format).
-- **numpy** – for numerical operations and handling missing values.
-- **re (regex)** – to clean and translate region names.
-
 ### Data Challenges
 ##### 1. Fragmented & inconsistent data 
 Flood data across Europe is fragmented, with no centralized standard. Key indicators, such as flood extent, fatalities, affected population, and infrastructure damage, are often missing, outdated, or reported inconsistently across datasets.
@@ -77,18 +69,61 @@ Satelitte data for infrastructure and buildings were reported using inconsistent
 - **Hanze** stops recording floods in 2020.
 - **EM-DAT** records sharply declined in 2022, raising concerns about underreporting.
 - **Copernicus** only tracks floods requested by authorized users, and not all flood occurencies.
-##### 7. Evolving APIs and Platforms  
+##### 7. Evolving API and Platforms  
 During the project, Copernicus changed its web platform, removing visible access to its open API in newer pages. Though the API remains functional as of May 30 2025, data retrieval using this methogology may require adapting in the future.
 
+## Collection and Analysis
+#### Libraries Used
+This analysis was conducted using the following Python libraries:
+- **pandas** – for data cleaning, analysis, and merging across multiple datasets.
+- **requests** – to retrieve data from the Copernicus API (in JSON format).
+- **numpy** – for numerical operations and handling missing values.
+- **re (regex)** – to clean and translate region names.
+
+## Jupyter Notebooks
+- **Scraping in two steps**: One notebook collects flood information and another collects statistics to better structure the code. These are later merged:
+  - `1_scraping_copernicus_api.ipynb`
+  - `2_merge_copernicus_data.ipynb`
+
+- **Additional scraping** was done after discovering that the summary tables containing flood extents were incorrect:
+  - `3_scraping_copernicus_data_WITH_FLOOD_EXTENTS_HA.ipynb`
+
+- **Merging with Eurostat regions**: Clean scraped data is merged with Eurostat's regional file:
+  - `4_merging_copernicus_with_regions_excels_eu_commission.ipynb`
+
+- **Final dataset generation**: Verifies data integrity after Copernicus’ site change and creates the final Excel:
+  - `5_FINAL_EXCEL_merging_new_scraped_copernicus_data_with_old_final_excel.ipynb`
+
+- **Processing HANZE dataset**: Fixes and merges HANZE data with Eurostat regional codes:
+  - `6_hanze_and_regions_merge.ipynb`
+
+- **Category-based analysis of Copernicus data (2023–2024)**:
+  - `copernicus_analysis_2024-2023_1_max_extent.ipynb`
+  - `copernicus_analysis_2024-2023_2_land_use.ipynb`
+  - `copernicus_analysis_2024-2023_3_transportation.ipynb`
+  - `copernicus_analysis_2024-2023_4_infrastructure_pipelines_communication.ipynb`
+  - `copernicus_analysis_2024-2023_5_population.ipynb`
+  - `copernicus_analysis_2024-2023_6_Storm_Boris.ipynb`  
+    (This one uses the same final Excel file, with storm names and fatalities manually added, based on GDACS or media sources.)
+
+- **Creating the decade-long dataset**:
+  - `8_decade_floods_dataset_all_sources.ipynb`
+
+- **Decade-long analysis**:
+  - `analysis_9_decade.ipynb`
+
+- **Creating summary Excel files** with totals per flood, per country, and per NUTS region for the most important Copernicus categories:
+  - `7_Sums of categories per flood, country and nuts regions in Copernicus.ipynb`
+
 ## Datasets
-- Download raw Copernicus flood impact data (2023-2024)[here](https://github.com/konstantinamalt/floods_project/blob/main/CLEAN_FINAL_aois_all_details_nuts_translated.xlsx), filename: "CLEAN_FINAL_aois_all_details_nuts_translated.xlsx"
+- Download raw Copernicus flood impact data (2023-2024) [here](https://github.com/konstantinamalt/floods_project/blob/main/CLEAN_FINAL_aois_all_details_nuts_translated.xlsx), filename: "CLEAN_FINAL_aois_all_details_nuts_translated.xlsx"
 - Download final file with sums of categories per flood, country and nuts regions for Copernicus [here](https://github.com/konstantinamalt/floods_project/blob/main/Sums%20of%20categories%20per%20flood%2C%20country%20and%20nuts%20regions%20in%20Copernicus.xlsx)
 - Download final Decade dataset from all three sources (2014-2023) [here](https://github.com/konstantinamalt/floods_project/blob/main/decade_final_dataset_copernicus_emdat_hanze.xlsx), filename: "decade_final_dataset_copernicus_emdat_hanze.xlsx"
-
-## Dataset for regions
+- Hanze original data filename: HANZE_events.csv / Hanze final: final_hanze_dataset_2020_2014.xlsx
+- Original public EM-DAT data shared by EEA filename: public_emdat_custom_request_2024-12-12_konna.xlsx / Public EM-DAT final: final_public_emdat_2022_2021
 - Download Eurostat regional data 2021-2024 [here](https://github.com/konstantinamalt/floods_project/blob/main/NUTS2021-NUTS2024(1).xlsx) filename: "NUTS2021-NUTS2024(1).xlsx"
 
-### License
+## License
 The data analysis for this project is open for use.
 
 
