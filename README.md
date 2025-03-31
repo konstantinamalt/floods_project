@@ -31,6 +31,14 @@ The project was a collaboration of 6 EDJNet members: [MIIR]([https://miir.gr/) (
 - Normalize inconsistent data from multiple sources (Copernicus, Public EM-DAT, Hanze)
 - Provide a methodology for Copernicus' satellite data that can be used for othe natural disasters
 
+## Findings
+- Over the past two years alone, 32 floods in 17 countries affected 427,336 hectares—an area 1.5 times the size of Luxembourg. Around 76.7% of this was agricultural land, raising long-term concerns for food security and farmer livelihoods.
+- Analysis of 61 impacted regions (NUTS 3 level) reveals rural areas experienced the most extensive flooding, with approximately 138,663 affected hectares. In comparison, 98,447 hectares were affected in intermediate regions and 88,468 hectares in urban regions.
+- Although rural areas experienced the largest flood extents, urban regions saw the highest damage to roads, pipelines, and communication networks.
+- Valencia's flood in 2024 and Thessaly's flood in 2023 were Europe’s most destructive floods. The Valencia flood was the deadliest, affecting 190,090 people and killing 232. The Thessaly flood claimed 17 lives and affected 122,375 hectares, 92% of which was farmland. The flood ultimately contributed to 335 deaths when post-flood mortality is considered.
+- In the last two years, floods have affected 4,256.20 km of transportation infrastructure (especially local roads) and 1,223.6 km of pipelines and communication infrastructure.
+- Despite increasing flood frequency and severity, Europe still lacks a centralized, consistent database for flood impact. The analysis had to reconcile data from Copernicus, EM-DAT, and Hanze, each using different methodologies, limiting long-term comparisons and undermining disaster preparedness.
+
 ## Methodology Summary
 - Searched for open-access European flood datasets with key indicators (extent, land type, population, infrastructure).
 - Selected three main data sources: **Hanze**, **Public EM-DAT**, and **Copernicus EMS**.
@@ -45,37 +53,42 @@ The project was a collaboration of 6 EDJNet members: [MIIR]([https://miir.gr/) (
 
 👉 See **From Space to Spreadsheet: The Troubled Waters Methodology** [here](https://konstantinamalt.github.io/floods/)
 
-You can use the included notebook to extract Copernicus flood data via their API without needing to install Python—simply open it in Google Colab, input your selected flood IDs, and run the script.
-
-Manual methods are also outlined in the documentation for use cases where the API is inaccessible.
+## Collection and Analysis
+#### Libraries Used
+This analysis was conducted using the following Python libraries:
+- **pandas** – for data cleaning, analysis, and merging across multiple datasets.
+- **requests** – to retrieve data from the Copernicus API (in JSON format).
+- **numpy** – for numerical operations and handling missing values.
+- **re (regex)** – to clean and translate region names.
 
 ### Data Challenges
-#### 1. Fragmented & inconsistent data 
+##### 1. Fragmented & inconsistent data 
 Flood data across Europe is fragmented, with no centralized standard. Key indicators, such as flood extent, fatalities, affected population, and infrastructure damage, are often missing, outdated, or reported inconsistently across datasets.
-#### 2. Regional mismatch  
-Copernicus defines Areas of Interest (AOIs) that do not match official administrative regions. Manual searching and cross-reference with Eurostat’s NUTS 3 classification was required to enable regional comparisons and typologies. Public EM-DAT data also required manual search to adhere to Eurostat's classification of administrative regions. HANZE had the proper names and codes based on Eurostat's classification, but needed to be updated to match the classification of 2024.
-#### 3. Overlapping observations  
+##### 2. Regional mismatch and language
+Copernicus defines Areas of Interest (AOIs) that do not match official administrative regions. Manual searching and cross-reference with Eurostat’s NUTS 3 classification was required to enable regional comparisons and typologies. Public EM-DAT data also required manual search to adhere to Eurostat's classification of administrative regions. HANZE had the proper names and codes based on Eurostat's classification, but needed to be updated to match the classification of 2024. Language was also an issue, since Eurostat region names had to be translated in English.
+##### 3. Overlapping observations  
 In Copernicus multiple AOIs often overlap for a single flood event, with repeated observations recorded as separate products. Filtering was required to avoid double counting flood extent, affected land, infrastructure and populations.
-#### 4. Inconsistent satellite reporting  
+##### 4. Inconsistent satellite reporting  
 Copernicus summary tables often exclude "flood traces," underreporting the actual flooded area. Manual review of each AOI’s full statistics was necessary to accurately capture total flood extent.
-#### 5. Unit inconsistencies  
+##### 5. Unit inconsistencies  
 Satelitte data for infrastructure and buildings were reported using inconsistent units (e.g. hectares vs. number or kilometers), sometimes even within the same flood. To ensure consistency, some categories, like residential buildings, were excluded from final analysis.
-#### 6. Coverage gaps  
+##### 6. Coverage gaps  
 - **Hanze** and **EM-DAT** lacked any flood extent data. Affected population data were available but still sparse.
 - **Hanze** stops recording floods in 2020.
 - **EM-DAT** records sharply declined in 2022, raising concerns about underreporting.
 - **Copernicus** only tracks floods requested by authorized users, and not all flood occurencies.
-#### Evolving APIs and Platforms  
+##### 7. Evolving APIs and Platforms  
 During the project, Copernicus changed its web platform, removing visible access to its open API in newer pages. Though the API remains functional as of May 30 2025, data retrieval using this methogology may require adapting in the future.
 
-## Final Datasets
-- Download Copernicus flood impact data (2023-2024)[here](https://github.com/konstantinamalt/floods_project/blob/main/CLEAN_FINAL_aois_all_details_nuts_translated.xlsx), filename: "CLEAN_FINAL_aois_all_details_nuts_translated.xlsx"
-- Download Decade dataset from all three sources (2014-2023) [here](https://github.com/konstantinamalt/floods_project/blob/main/decade_final_dataset_copernicus_emdat_hanze.xlsx), filename: "decade_final_dataset_copernicus_emdat_hanze.xlsx"
+## Datasets
+- Download raw Copernicus flood impact data (2023-2024)[here](https://github.com/konstantinamalt/floods_project/blob/main/CLEAN_FINAL_aois_all_details_nuts_translated.xlsx), filename: "CLEAN_FINAL_aois_all_details_nuts_translated.xlsx"
+- Download final file with sums of categories per flood, country and nuts regions for Copernicus [here](https://github.com/konstantinamalt/floods_project/blob/main/Sums%20of%20categories%20per%20flood%2C%20country%20and%20nuts%20regions%20in%20Copernicus.xlsx)
+- Download final Decade dataset from all three sources (2014-2023) [here](https://github.com/konstantinamalt/floods_project/blob/main/decade_final_dataset_copernicus_emdat_hanze.xlsx), filename: "decade_final_dataset_copernicus_emdat_hanze.xlsx"
 
 ## Dataset for regions
 - Download Eurostat regional data 2021-2024 [here](https://github.com/konstantinamalt/floods_project/blob/main/NUTS2021-NUTS2024(1).xlsx) filename: "NUTS2021-NUTS2024(1).xlsx"
 
-### License & Citation
-The data for this project is open for use.
+### License
+The data analysis for this project is open for use.
 
 
