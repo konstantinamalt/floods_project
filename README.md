@@ -116,7 +116,7 @@ This analysis was conducted using the following Python libraries:
   - `7_Sums of categories per flood, country and nuts regions in Copernicus.ipynb`
 
 ## Datasets
-- Download raw Copernicus flood impact data (2023-2024)[here](https://github.com/konstantinamalt/floods_project/blob/main/CLEAN_FINAL_aois_all_details_nuts_translated.xlsx), filename: "CLEAN_FINAL_aois_all_details_nuts_translated.xlsx"
+- Download raw Copernicus flood impact data (2023-2024) [here](https://github.com/konstantinamalt/floods_project/blob/main/CLEAN_FINAL_aois_all_details_nuts_translated.xlsx), filename: "CLEAN_FINAL_aois_all_details_nuts_translated.xlsx"
 - Download final file with sums of categories per flood, country and nuts regions for Copernicus [here](https://github.com/konstantinamalt/floods_project/blob/main/Sums%20of%20categories%20per%20flood%2C%20country%20and%20nuts%20regions%20in%20Copernicus.xlsx)
 - Download final Decade dataset from all three sources (2014-2023) [here](https://github.com/konstantinamalt/floods_project/blob/main/decade_final_dataset_copernicus_emdat_hanze.xlsx), filename: "decade_final_dataset_copernicus_emdat_hanze.xlsx"
 - Hanze original data filename: HANZE_events.csv / Hanze final: final_hanze_dataset_2020_2014.xlsx
