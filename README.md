@@ -69,7 +69,7 @@ Satelitte data for infrastructure and buildings were reported using inconsistent
 - **Hanze** stops recording floods in 2020.
 - **EM-DAT** records sharply declined in 2022, raising concerns about underreporting.
 - **Copernicus** only tracks floods requested by authorized users, and not all flood occurencies.
-##### 7. Evolving APIs and Platforms  
+##### 7. Evolving API and Platforms  
 During the project, Copernicus changed its web platform, removing visible access to its open API in newer pages. Though the API remains functional as of May 30 2025, data retrieval using this methogology may require adapting in the future.
 
 ## Collection and Analysis
